@@ -9,13 +9,17 @@ How to install
 
 ```
 #  Database setup
-DB_DNS="pgsql:host={host};port={port};dbname={dbname};sslmode=require"
-DB_USERNAME="username"
-DB_PASSWORD="password"
+DB_HOST=
+DB_PORT=
+DB_DBNAME=
+DB_USERNAME=
+DB_PASSWORD=
+DB_USERNAME=
+DB_PASSWORD=
 
 # JWT setup
-SECRET_KEY="cartrack_secret_key"
-ALGORITHM="HS256"
+SECRET_KEY=cartrack_secret_key
+ALGORITHM=HS256
 
 # JWT payload setup
 EXPIRATION=60
