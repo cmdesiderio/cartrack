@@ -1,3 +1,4 @@
+//create table users for login api - generation of token
 CREATE TABLE api_person.users (
 	person_id serial PRIMARY KEY,
 	usernameVARCHAR ( 50 ) UNIQUE  NOT NULL,
@@ -5,6 +6,7 @@ CREATE TABLE api_person.users (
 	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+//create table person
 CREATE TABLE api_person.persons (
 	person_id serial PRIMARY KEY,
 	first_name VARCHAR ( 50 ) NOT NULL,
@@ -17,6 +19,7 @@ CREATE TABLE api_person.persons (
 	updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
+//create function for auto update of updated_at column
 CREATE OR REPLACE FUNCTION api_person.set_timestamp_func()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -25,6 +28,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+//create trigger for auto update of updated_at column
 CREATE TRIGGER updated_at_trg
 BEFORE UPDATE ON api_person.persons
 FOR EACH ROW
