@@ -20,16 +20,6 @@ class PostgresModel implements ModelInterface
 		$this->db = null;
 	}
 
-	public function setTable(string $table): void
-	{
-		$this->table = $table;
-	}
-	
-	public function getTable(): string
-	{
-		return $this->table;
-	}
-
 	public function insert(string $sql, array $params = array()): int
 	{
 		$this->query($sql, $params);
@@ -54,17 +44,18 @@ class PostgresModel implements ModelInterface
 		return $this->affectedRows();
 	}
 
-	private function query(string $sql, array $params): void
+	public function query(string $sql, array $params): bool
 	{
 		try {
 			$this->stmt = $this->db->prepare($sql);
 			if (count($params) > 0) {
 				$this->bindParam($params);
 			}
-			$this->stmt->execute();
 		} catch (PDOException $e) {
 			exit($e->getMessage());
 		}
+
+		return $this->stmt->execute();
 	}
 
 	private function bindParam(array $params): void
