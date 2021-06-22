@@ -1,0 +1,31 @@
+CREATE TABLE api_person.users (
+	person_id serial PRIMARY KEY,
+	usernameVARCHAR ( 50 ) UNIQUE  NOT NULL,
+	passwordVARCHAR ( 50 ) NOT NULL
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE api_person.persons (
+	person_id serial PRIMARY KEY,
+	first_name VARCHAR ( 50 ) NOT NULL,
+	last_name VARCHAR ( 50 ) NOT NULL,
+	email VARCHAR ( 50 ) UNIQUE NOT NULL,
+	birth_date DATE NOT NULL,
+	created_by_id int NOT NULL,
+	updated_by_id int NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE OR REPLACE FUNCTION api_person.set_timestamp_func()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = CURRENT_TIMESTAMP;
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER updated_at_trg
+BEFORE UPDATE ON api_person.persons
+FOR EACH ROW
+EXECUTE PROCEDURE api_person.set_timestamp_func();
