@@ -27,10 +27,10 @@ class TokenService
 		$currentTime = time();
 
 		$payload = array(
-			"iat"       => $currentTime,
-			"nbf"       => $currentTime + $this->notBefore,
-			// "exp"       => $currentTime + $this->expiration,
-			"data" 		=> $data
+			"iat"  => $currentTime,
+			"nbf"  => $currentTime + $this->notBefore,
+			"exp"  => $currentTime + $this->expiration,
+			"data" => $data
 		);
 
 		return JWT::encode($payload, $this->secretKey, $this->algorithm);
