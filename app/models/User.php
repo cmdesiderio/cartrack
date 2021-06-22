@@ -2,14 +2,14 @@
 namespace Cartrack\Models;
 
 use Cartrack\Database\Connection\PostgresConnection as Postgres;
-use Cartrack\Database\Model\PostgresModel;
+use Cartrack\Database\Model\PostgresModel as Model;
 
-class User extends PostgresModel
+class User extends Model
 {
     public function __construct()
     {
 		$postgres = new Postgres;
-		$conn = $postgres->connection();
+		$conn = $postgres->connect();
 
 		$this->connect($conn);
     }
@@ -23,9 +23,9 @@ class User extends PostgresModel
 
 		$params = array(
 			'username' => $credential->username,
-			'password' => $credential->password,
+			'password' => $credential->password
 		);
 
-		return $this->selectQuery();
+		return $this->select($sql, $params);
     }
 }

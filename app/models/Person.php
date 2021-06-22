@@ -2,9 +2,9 @@
 namespace Cartrack\Models;
 
 use Cartrack\Database\Connection\PostgresConnection as Postgres;
-use Cartrack\Database\Model\PostgresModel;
+use Cartrack\Database\Model\PostgresModel as Model;
 
-class Person extends PostgresModel
+class Person extends Model
 {
 	public function __construct()
     {
@@ -12,7 +12,6 @@ class Person extends PostgresModel
 		$conn = $postgres->connect();
 
 		$this->connect($conn);
-		$this->setTable('api_person.persons');
     }
 
     public function store(object $input, int $logId): int
@@ -39,7 +38,7 @@ class Person extends PostgresModel
 			'email'         => $input->email,
 			'birth_date'    => $input->birth_date,
 			'created_by_id' => $logId,
-			'updated_by_id' => $logId,
+			'updated_by_id' => $logId
 		);
 
 		return $this->insert($sql, $params);
@@ -90,7 +89,7 @@ class Person extends PostgresModel
 			'email'         => $input->email,
 			'birth_date'    => $input->birth_date,
 			'updated_by_id' => $logId,
-			'person_id'     => $personId,
+			'person_id'     => $personId
 		);
 
 		return $this->update($sql, $params);
@@ -105,13 +104,8 @@ class Person extends PostgresModel
 
 	public function getEmail(string $email, ?int $personId)
     {
-		$sql = "SELECT email
-				FROM api_person.persons
-				WHERE email = :email";
-
-		$params = array(
-			'email' => $email,
-		);
+		$sql = "SELECT email FROM api_person.persons WHERE email = :email";
+		$params = array('email' => $email);
 
 		if ($personId) {
 			$sql .= " AND person_id != :person_id";

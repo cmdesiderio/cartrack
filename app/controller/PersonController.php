@@ -15,12 +15,12 @@ class PersonController
 
     private $person;
 
-    public function __construct(string $requestMethod, ?int $personId, int $logId, array $filterData)
+    public function __construct(string $requestMethod, ?int $personId, int $logId, array $filter)
     {
         $this->requestMethod = $requestMethod;
         $this->personId = $personId;
         $this->logId = $logId;
-        $this->filter = $filterData;
+        $this->filter = $filter;
 
         $this->person = new Person();
     }
