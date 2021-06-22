@@ -111,8 +111,6 @@ Authorization : {generated_token}
 ```
 
 Filtering
----------
-
 ```
 //get data based on search value
 GET localhost/cartrack/api/v1/persons?column_name=value&column_name2=value2&column_name3=value3
